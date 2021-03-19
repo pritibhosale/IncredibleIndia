@@ -15,22 +15,22 @@ const LoginScreen = (props) => {
 
   const dispatch = useDispatch();
 
-  const onSignin = () => {
+  const OnSignin = () => {
     dispatch(signin(email, password));
   };
-
-  const [url, setUrl] = useState("/home");
+  /*
   useEffect(() => {
+    let url;
     if (response && response.role == "ADMIN") {
-      setUrl("/adminprofile");
+      url = "/adminprofile";
     } else if (response && response.role == "OWNER") {
-      setUrl("/ownerprofile");
-    } else {
-      setUrl("/seekerprofile");
+      url = "/ownerprofile";
+    } else if (response && response.role == "SEEKER") {
+      url = "/seekerprofile";
     }
-  }, [loading, error, response]);
+  }, [loading, error, response]);*/
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (response && response.role == "ADMIN") {
       sessionStorage.setItem("token", response.data.token);
       props.history.push("/adminprofile");
@@ -46,7 +46,6 @@ const LoginScreen = (props) => {
       alert(error);
     }
   }, [loading, error, response]);
-  */
 
   return (
     <div class="text-center mt-5">
@@ -80,15 +79,14 @@ const LoginScreen = (props) => {
               id="exampleInputPassword1"
             />
           </div>
-          <Link to={url}>
-            <button
-              onClick={onSignin}
-              type="submit"
-              class="btn btn-primary float-left"
-            >
-              Login
-            </button>
-          </Link>
+
+          <button
+            onClick={OnSignin}
+            type="submit"
+            class="btn btn-primary float-left"
+          >
+            Login
+          </button>
 
           <Link
             type="button"

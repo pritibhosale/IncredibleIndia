@@ -2,17 +2,21 @@ import Header from "../Components/Header";
 import { Link } from "react-router-dom";
 
 import Profile from "../Components/Profile";
+import { useSelector } from "react-redux";
 
 const OwnerProfileScreen = (props) => {
+  // const userSignin = useSelector((store) => store.userSignin);
+  // const { response } = userSignin;
+
   return (
     <div>
       <div>
         <Profile
           imgsrc="https://source.unsplash.com/user/erondu/1600x900"
-          name="Sujit Barbole"
-          email="sujit@gmail.com"
-          phone="12345678"
-          address="ahvfbvvibi,aibvfbvi"
+          name="" //{response && response.name}
+          email="" //{response && response.email}
+          phone="" //{response && response.contactNo}
+          address="" //{response && response.address}
         />
       </div>
       <div className=" container col-sm-3">
