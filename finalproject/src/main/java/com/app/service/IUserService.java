@@ -10,7 +10,9 @@ import com.app.pojos.Users;
 public interface IUserService {
 Users loginRequest(String email,String password);
 Users registerationForm(Users  user);
+Users updateProfile(int userid,UpdateDTO user) throws ResourceNotFoundException;
 List<PropertyDetailsDTO> getAllProperty();
 FacilityDetailsDTO getPropertyFacilities(int propid);
+Users profilePage(int userid,Role role);
 
 }

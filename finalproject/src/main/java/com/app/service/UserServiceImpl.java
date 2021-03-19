@@ -36,6 +36,15 @@ public class UserServiceImpl implements IUserService{
 		  return  userRepo.save(user);		
 	}
 
+	@Override
+	public  Users updateProfile(int userid, UpdateDTO user) throws ResourceNotFoundException {
+		    boolean exists=userRepo.existsById(userid);
+		     if(!exists)
+		    	 throw new ResourceNotFoundException("Invalid user id!!!!!");
+		         Users userDetails=userRepo.findById(userid).get();
+		         BeanUtils.copyProperties(user, userDetails);
+		         return userDetails;
+	}
 	
 	@Override
 	public List<PropertyDetailsDTO> getAllProperty() {
@@ -47,7 +56,9 @@ public class UserServiceImpl implements IUserService{
 		 return propRepo.getFacilityDetails(propid);
 	}
 
-
-
+	@Override
+	public Users profilePage(int userid,Role role) {
+	      return userRepo.profilePage(userid, role);
+	}
 
 }

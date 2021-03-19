@@ -1,4 +1,9 @@
 package com.app.controller;
+
+import java.sql.SQLException;
+
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +23,11 @@ import com.app.service.IUserService;
 
 @RestController
 @RequestMapping("/users")
-public class UserController {
+public class UserContoller {
 	@Autowired
 	private IUserService userService;
 	@Autowired
-	public UserController()
+	public UserContoller()
 	{
 		System.out.println("in ctor of:-"+getClass().getName());
 	}
@@ -41,6 +46,15 @@ public class UserController {
 			
          }
          
+         @PostMapping("/update/{userid}")
+         public ResponseDTO<?> updateProfile(@PathVariable int userid,@RequestBody UpdateDTO user)
+         {
+        	  try {
+				return new ResponseDTO<>(HttpStatus.OK, "Update operation done successfully",userService.updateProfile(userid, user));
+			} catch (ResourceNotFoundException e) {
+				return new ResponseDTO<>(HttpStatus.BAD_GATEWAY,"Use valid userid",null);
+			} 
+         }
          @GetMapping("/property")
      	public ResponseDTO<?> getAllPropertyHomePage()
      	{
@@ -51,5 +65,9 @@ public class UserController {
       	{
       		return new ResponseDTO<>(HttpStatus.OK,"Fetching property list successfully",userService.getPropertyFacilities(propid));
       	}
-         
+         @PostMapping("/profile/{userid}")
+         public ResponseDTO<?>profilePage(@PathVariable int userid,@RequestBody Role role)
+         {
+        	 return new ResponseDTO<>(HttpStatus.OK,"Fetching property list successfully",userService.profilePage( userid,role));
+         }
 }

@@ -6,7 +6,7 @@ public interface FacilityDetailsDTO {
 	String getAddress();
 	String getRent();
 	String getStatus();
-   List <AreaInfo> getAreadata();
+   List <AreaInfo> getAreaData();
     interface AreaInfo{
     	 String getAreaName();
     	 City getCityData();
