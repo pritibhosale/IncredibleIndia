@@ -2,6 +2,7 @@ package com.app.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import com.app.custom_excs.ResourceNotFoundException;
 import com.app.dto.ResponseDTO;
 import com.app.dto.SearchPropRequest;
 import com.app.service.ISeekerService;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/seeker")
 public class SeekerController {
