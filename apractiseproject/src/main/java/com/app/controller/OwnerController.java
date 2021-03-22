@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.AddPropertyDTO;
 import com.app.dto.ResponseDTO;
+import com.app.pojos.Facilities;
 //import com.app.pojos.City;
 import com.app.pojos.PropertyDetails;
 import com.app.service.IOwnerService;
@@ -28,5 +29,12 @@ public class OwnerController {
        public ResponseDTO<?>addProperty(@RequestBody PropertyDetails request)
        {
     	   return new ResponseDTO<>(HttpStatus.OK, "Fetching user list successfully", ownerService.addProperty(request));
+       }
+       
+       
+       @PostMapping("/addfacilities")
+       public ResponseDTO<?>addFacility(@RequestBody Facilities request)
+       {
+    	   return new ResponseDTO<>(HttpStatus.OK, "Fetching user list successfully", ownerService.addFacilities(request));
        }
 }

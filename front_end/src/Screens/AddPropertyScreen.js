@@ -1,160 +1,214 @@
+import { useState, useEffect } from "react";
 import Header from "../Components/Header";
 import { Link } from "react-router-dom";
-import Checkbox from "../Components/Checkbox";
+import { useDispatch, useSelector } from "react-redux";
+import img4 from "../Images/img4.jpg";
 
-const AddPropertyScreen = (props) => {
+import { addProperty } from "../Actions/OwnerActions";
+
+const AddPropertyScreen = () => {
+  const [propertyType, setpropertyType] = useState("NULL");
+  const [ownerData, setOwnerData] = useState({ id: "" });
+  const [pincode, setPincode] = useState("NULL");
+  // const [areaData, setAreaData] = useState("");
+  const [city, setCity] = useState("NULL");
+  const [address, setAddress] = useState("NULL");
+  const [photo, setPhoto] = useState("NULL");
+  //const [furnished, setFurnished] = useState("NULL");
+  //const [security, setSecurity] = useState("NULL");
+  //const [lift, setLift] = useState("NULL");
+  const [rent, setRent] = useState("NULL");
+
+  /*const [facilityList, setFacilityList] = useState({
+    seculity: "",
+    lift: "",
+    furnished: "",
+  }); */
+  /*onChange={(e) => {
+                setFacilityList({ lift: e.target.value });
+              }} 
+              
+              
+               value={setFacilityList.security}
+              onChange={(e) => {
+                setFacilityList({ security: e.target.value });
+              }}
+              
+              value={setFacilityList.furnished}
+              onChange={(e) => {
+                setFacilityList({ furnished: e.target.value });
+              }}
+              */
+  const dispatch = useDispatch();
+
+  const propertyAdd = useSelector((store) => store.propertyAdd);
+
+  const { loading, response, error } = propertyAdd;
+
+  const onAdd = () => {
+    dispatch(
+      addProperty(
+        propertyType,
+        ownerData,
+        pincode,
+        city,
+        address,
+        photo,
+        // furnished,
+        // security,
+        //lift,
+        rent
+        // facilityList
+      )
+    );
+  };
+
+  useEffect(() => {
+    if (response && response.status == "success") {
+    } else if (error) {
+      // there is an error while making the API call
+      console.log(error);
+      alert("error while making API call");
+    }
+  }, [loading, response, error]);
+
   return (
-    <div class="text-center mt-5">
+    <div
+      class="text-center mt-5"
+      className=" container col-sm-10 text-center mt-5"
+      style={{
+        backgroundImage: `url(${img4})`,
+      }}
+    >
       <Header title="Add Property With Valid Details.." />
 
-      <div class="container col-sm-4 mt-5 border border-dark border-5">
-        <form class="row g-3 needs-validation" novalidate>
-          <div class="col-md-4 mt-3">
-            <label for="validationCustom04" class="form-label">
-              Property Type
-            </label>
-            <select class="form-select" id="validationCustom04" required>
-              <option>1Bhk</option>
-              <option>2Bhk</option>
-              <option>3Bhk</option>
-              <option>4Bhk</option>
-              <option>...</option>
-            </select>
-            <div class="invalid-feedback">
-              Please select a valid Property type.
-            </div>
-          </div>
-          <div class="col-md-4 mt-3 ">
-            <label for="validationCustom04" class="form-label">
-              State
-            </label>
-            <select class="form-select" id="validationCustom04" required>
-              <option>Karnataka</option>
-              <option>Maharashtra</option>
-              <option>Telangana</option>
-              <option>M P</option>
-              <option>...</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid state.</div>
-          </div>
-
-          <div class="col-md-12 mt-3">
-            <label for="validationCustom05 " class="form-label float-left">
-              Complete Address
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              id="validationCustom05"
-              required
-            />
-
-            <div class="invalid-feedback">Please provide a valid Address.</div>
-          </div>
-
-          <div class="col-md-6 mt-3 ">
-            <label for="validationCustom04" class="form-label">
-              City
-            </label>
-            <br></br>
-            <select class="form-select" id="validationCustom04" required>
-              <option>Pune</option>
-              <option>Mumbai</option>
-              <option>Nagpur</option>
-              <option>Nashik</option>
-              <option>...</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid city.</div>
-          </div>
-
+      <div class="container col-sm-4 mt-5 border border-dark border-5 bg-light-gradient ">
+        <form class="row g-3 needs-validation font-weight-bold  " novalidate>
           <div class="col-md-6 mt-3">
             <label for="validationCustom05" class="form-label">
               Pincode
             </label>
             <input
-              type="text"
+              onChange={(e) => {
+                setPincode(e.target.value);
+              }}
+              propertyType="text"
               class="form-control"
               id="validationCustom05"
               required
             />
+          </div>
+          <div class="col-md-6 mt-3">
+            <label for="validationCustom05" class="form-label">
+              Owner Id
+            </label>
+            <input
+              value={ownerData.id}
+              onChange={(e) => {
+                setOwnerData({ id: e.target.value });
+              }}
+              propertyType="text"
+              class="form-control"
+              id="validationCustom05"
+              required
+            />
+          </div>
+          <div class="col-md-12 mt-3">
+            <label for="validationCustom05 " class="form-label float-left">
+              Complete Address
+            </label>
+            <input
+              onChange={(e) => {
+                setAddress(e.target.value);
+              }}
+              propertyType="text"
+              class="form-control"
+              id="validationCustom05"
+              required
+            />
+          </div>
+          <div class="col-md-4 mt-3">
+            <label for="validationCustom04" class="form-label">
+              Property Type
+            </label>
+            <select
+              class="form-select"
+              id="validationCustom04"
+              required
+              onChange={(e) => {
+                setpropertyType(e.target.value);
+              }}
+            >
+              <option>Choose..</option>
+              <option>oneBHK</option>
+              <option>twoBHK</option>
+              <option>threeBHK</option>
 
-            <div class="invalid-feedback">Please provide a valid zip.</div>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="col-md-6 mt-3">
+            <label for="validationCustom05" class="form-label">
+              City
+            </label>
+            <input
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
+              propertyType="text"
+              class="form-control"
+              id="validationCustom05"
+              required
+            />
           </div>
 
+          <div class="col-md-4 mt-4 float-center">
+            <label for="validationCustom05 " class="form-label float-center">
+              Rent
+            </label>
+            <input
+              onChange={(e) => {
+                setRent(e.target.value);
+              }}
+              propertyType="text"
+              class="form-control"
+              id="validationCustom05"
+              required
+            />
+          </div>
           <div class="input-group mb-3 mt-3 mr-3 ml-3">
-            <input type="file" class="form-control" id="inputGroupFile02" />
+            <input
+              onChange={(e) => {
+                setPhoto(e.target.value);
+              }}
+              propertyType="file"
+              class="form-control"
+              id="inputGroupFile02"
+            />
             <label class="input-group-text" for="inputGroupFile02">
               Upload Photo
             </label>
           </div>
-
-          <div class="input-group mt-3 mr-3 ml-5">
-            <label for="validationCustom04" class="form-label col-md-12 ">
-              Facilities Provided
-            </label>
-
-            <Checkbox title="Ac" />
-            <Checkbox title="wifi" />
-            <Checkbox title="gym" />
-
-            <Checkbox title="Ac" />
-            <Checkbox title="wifi" />
-            <Checkbox title="gym" />
-          </div>
-          <div class="col-md-4 mt-3">
-            <label for="validationCustom05 " class="form-label float-left">
-              Rent
-            </label>
-            <input
-              type="text"
-              class="form-control"
-              id="validationCustom05"
-              required
-            />
-
-            <div class="invalid-feedback">Please provide a valid Amount.</div>
-          </div>
-
-          <div class="col-12">
-            <div class="form-check my-3 float-left">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="invalidCheck"
-                required
-              />
-              <label class="form-check-label" for="invalidCheck">
-                Agree to terms and conditions
-              </label>
-              <div class="invalid-feedback">
-                You must agree before submitting.
-              </div>
-            </div>
-          </div>
           <br></br>
           <br></br>
           <div class="col-12">
-            <Link
-              type="button"
-              class="btn btn-outline-primary float-left"
-              to="/payment"
-            >
-              Pay And Add
+            <Link to="/payment">
+              <button
+                class="btn btn-danger float-left"
+                propertyType="submit"
+                onClick={onAdd}
+              >
+                Add And Pay
+              </button>
             </Link>
 
             <Link
-              type="button"
-              class="btn btn-outline-primary float-right"
+              propertyType="button"
+              class="btn btn-danger float-right"
               to="/ownerprofile"
             >
               Cancle
             </Link>
-            <input
-              type="reset"
-              value="Reset"
-              class="btn btn-outline-primary"
-            ></input>
           </div>
           <br></br>
           <br></br>

@@ -1,48 +1,45 @@
 import Header from "../Components/Header";
 import { Link } from "react-router-dom";
+import img2 from "../Images/img2.jpg";
+
+import { useDispatch, useSelector } from "react-redux";
 
 import Profile from "../Components/Profile";
-import { useSelector } from "react-redux";
 
 const OwnerProfileScreen = (props) => {
   // const userSignin = useSelector((store) => store.userSignin);
   // const { response } = userSignin;
+  const userSignin = useSelector((store) => store.userSignin);
+  const { loading, error, response } = userSignin;
 
   return (
-    <div>
+    <div
+      class="container col-sm-10 text-center mt-5"
+      style={{
+        backgroundImage: `url(${img2})`,
+      }}
+    >
+      <Header title="This is Owner Profile" />
       <div>
         <Profile
           imgsrc="https://source.unsplash.com/user/erondu/1600x900"
-          name="" //{response && response.name}
-          email="" //{response && response.email}
-          phone="" //{response && response.contactNo}
-          address="" //{response && response.address}
+          name={response.name}
+          email={response.email}
+          phone={response.contactNo}
+          address={response.address}
         />
       </div>
       <div className=" container col-sm-3">
-        <Link
-          type="button"
-          class="btn btn-outline-primary m-3"
-          to="/editprofile"
-        >
+        <h4 className="title">{props.title}</h4>
+        <Link type="button" class="btn btn-danger m-3" to="/editprofile">
           Edit Profile
         </Link>
-        <Link
-          type="button"
-          class="btn btn-outline-primary m-3"
-          to="/addproperty"
-        >
+        <Link type="button" class="btn btn-danger m-3" to="/addproperty">
           Add Property
         </Link>
-
-        <h4 className="title">{props.title}</h4>
       </div>
     </div>
   );
-};
-
-OwnerProfileScreen.defaultProps = {
-  title: "",
 };
 
 export default OwnerProfileScreen;

@@ -1,6 +1,7 @@
 import Header from "../Components/Header";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import img2 from "../Images/img2.jpg";
 
 import { signin } from "../Actions/UserActions";
 
@@ -30,30 +31,51 @@ const LoginScreen = (props) => {
     }
   }, [loading, error, response]);*/
 
-  useEffect(() => {
-    if (response && response.role == "ADMIN") {
-      sessionStorage.setItem("token", response.data.token);
-      props.history.push("/adminprofile");
-    } else if (response && response.role == "OWNER") {
-      sessionStorage.setItem("token", response.data.token);
-      props.history.push("/ownerprofile");
-    } else if (response && response.role == "SEEKER") {
-      sessionStorage.setItem("token", response.data.token);
-      props.history.push("/seekerprofile");
+  /* useEffect(() => {
+    if (response && response.status == "OK") {
+      localStorage.setItem("user", response.role);
+      //localStorage.setItem("user", JSON.stringify(response));
+      if (response && response.role == "ADMIN") {
+        props.history.push("/adminprofile");
+      } else if (response && response.role === "OWNER") {
+        props.history.push("/ownerprofile");
+        //<Link to="/ownerprofile"></Link>;
+      } else if (response && response.role == "SEEKER") {
+        props.history.push("/seekerprofile");
+      }
     } else if (response && response.status == "error") {
       alert(response.error);
     } else if (error) {
       alert(error);
     }
-  }, [loading, error, response]);
+  }, [loading, error, response]); */
+
+  /* useEffect(() => {
+    localStorage.setItem("user", userSignin);
+    if (role === "ADMIN") {
+      sessionStorage.setItem("token", id);
+      props.history.push("/adminprofile");
+    } else if (role === "OWNER") {
+      sessionStorage.setItem("token", id);
+      props.history.push("/ownerprofile");
+    } else if (role === "SEEKER") {
+      localStorage.setItem("token", id);
+      props.history.push("/seekerprofile");
+    } else if (response && response.status === "error") {
+      alert(response.error);
+    } else if (error) {
+      alert(error);
+    }
+  }, [loading, error, response, role, id]);
+  */
 
   return (
-    <div class="text-center mt-5">
+    <div className=" container col-sm-10 text-center mt-5">
       <Header title="Login With Valid Credentials.." />
-      <div class="container col-sm-4 mt-5 border border-dark border-5">
+      <div className="container col-sm-6 bg-light mt-5 border border-dark border-5">
         <form>
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">
+          <div className="mb-3">
+            <label for="exampleInputEmail1" className="form-label">
               Email address
             </label>
             <input
@@ -61,13 +83,13 @@ const LoginScreen = (props) => {
                 setEmail(e.target.value);
               }}
               type="email"
-              class="form-control"
+              className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
             />
           </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">
+          <div className="mb-3">
+            <label for="exampleInputPassword1" className="form-label">
               Password
             </label>
             <input
@@ -75,32 +97,33 @@ const LoginScreen = (props) => {
                 setPassword(e.target.value);
               }}
               type="password"
-              class="form-control"
+              className="form-control"
               id="exampleInputPassword1"
             />
           </div>
 
-          <button
+          <Link
+            to="/"
             onClick={OnSignin}
             type="submit"
-            class="btn btn-primary float-left"
+            className="btn btn-primary float-left"
           >
             Login
-          </button>
+          </Link>
 
           <Link
             type="button"
-            class="btn btn-outline-primary float-left ml-4"
-            to="/"
+            className="btn btn-outline-primary float-left ml-4"
+            to="/forgotpass"
           >
             Forgot Password
           </Link>
 
-          <p class="col-sm-auto float-left ml-2 ">New User?</p>
+          <p className="col-sm-auto float-left ml-2 ">New User?</p>
 
           <Link
             type="button"
-            class="btn btn-outline-primary float-right"
+            className="btn btn-outline-primary float-right"
             to="/registration"
           >
             Register Here

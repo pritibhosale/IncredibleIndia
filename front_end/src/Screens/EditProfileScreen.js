@@ -1,138 +1,135 @@
 import Header from "../Components/Header";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { edit } from "../Actions/UserActions";
+import img3 from "../Images/img3.jpg";
 
 const EditProfile = (props) => {
+  const userSignin = useSelector((store) => store.userSignin);
+  const { loading, error, response } = userSignin;
+  const [email, setEmail] = useState("");
+  const [photo, setPhoto] = useState("");
+  const [contactNo, setContactNo] = useState("");
+  const [address, setAddress] = useState("");
+  const [id, setId] = useState("");
+
+  console.log("This is for testing");
+  console.log(response);
+
+  // const editProfile = useSelector((store) => store.editProfile);
+  // const { loading, error, response } = editProfile;
+
+  const dispatch = useDispatch();
+
+  const onEditProfile = () => {
+    setId(userSignin.response.id);
+    userSignin.response.email = email;
+    userSignin.response.contactNo = contactNo;
+    userSignin.response.address = address;
+    dispatch(
+      edit(
+        id,
+        userSignin.response.email,
+        userSignin.response.contactNo,
+        userSignin.response.address,
+        photo
+      )
+    );
+  };
+
+  useEffect(() => {
+    if (response && response.status == "OK") {
+      props.history.push("/login");
+    } else if (response && response.status == "error") {
+      alert(error);
+    }
+  }, [loading, error, response]);
+
   return (
-    <div class="text-center mt-5">
+    <div
+      class="container col-sm-10 text-center mt-5"
+      style={{
+        backgroundImage: `url(${img3})`,
+      }}
+    >
       <Header title="Edit Profile.." />
 
-      <div class="container col-sm-4 mt-5 border border-dark border-5">
-        <form class="row g-3 needs-validation" novalidate>
-          <div class="col-md-6">
-            <label for="validationCustomUsername" class="form-label">
-              First Name
-            </label>
-            <div class="input-group has-validation">
-              <input
-                type="text"
-                class="form-control"
-                id="validationCustomUsername"
-                aria-describedby="inputGroupPrepend"
-                required
-              />
-              <div class="invalid-feedback">Please choose First Name.</div>
-            </div>
-          </div>{" "}
-          <div class="col-md-6">
-            <label for="validationCustomUsername" class="form-label">
-              Last Name
-            </label>
-            <div class="input-group has-validation">
-              <input
-                type="text"
-                class="form-control"
-                id="validationCustomUsername"
-                aria-describedby="inputGroupPrepend"
-                required
-              />
-              <div class="invalid-feedback">Please choose Last Name.</div>
-            </div>
-          </div>
-          <div class="col-md-12 mt-3">
-            <label for="validationCustomUsername" class="form-label">
+      <div className="container col-sm-4 mt-5 border border-dark border-5">
+        <form className="row g-3 needs-validation bg-light" novalidate>
+          <div className="col-md-12 mt-3">
+            <label for="validationCustomUsername" className="form-label">
               Email
             </label>
-            <div class="input-group has-validation">
+            <div className="input-group has-validation">
               <input
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="validationCustomUsername"
                 aria-describedby="inputGroupPrepend"
                 required
               />
-              <div class="invalid-feedback">Please choose Email.</div>
             </div>
           </div>
-          <div class="col-md-12 mt-3">
-            <label for="validationCustomUsername" class="form-label">
-              Password
+          <div className="col-md-12 mt-3">
+            <label for="validationCustomUsername" className="form-label">
+              Contact Number
             </label>
-            <div class="input-group has-validation">
+            <div className="input-group has-validation">
               <input
+                onChange={(e) => {
+                  setContactNo(e.target.value);
+                }}
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="validationCustomUsername"
                 aria-describedby="inputGroupPrepend"
                 required
               />
-              <div class="invalid-feedback">Please choose a Password.</div>
+              <div className="invalid-feedback">Please choose a Password.</div>
             </div>
           </div>
-          <div class="col-md-4 mt-3">
-            <label for="validationCustomUsername" class="form-label">
-              City
+          <div className="col-md-12 mt-3">
+            <label for="validationCustomUsername" className="form-label">
+              Address
             </label>
-            <div class="input-group has-validation">
+            <div className="input-group has-validation">
               <input
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                }}
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="validationCustomUsername"
                 aria-describedby="inputGroupPrepend"
                 required
               />
-              <div class="invalid-feedback">Please choose City.</div>
+              <div className="invalid-feedback">Please choose a Password.</div>
             </div>
           </div>
-          <div class="col-md-4 mt-3">
-            <label for="validationCustom04" class="form-label">
-              State
-            </label>
-            <select class="form-select" id="validationCustom04" required>
-              <option>Choose..</option>
-              <option>Maharashtra</option>
-              <option>Telangana</option>
-              <option>Madhya Pradesh</option>
-              <option>...</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid state.</div>
-          </div>
-          <div class="col-md-4 mt-3">
-            <label for="validationCustom05" class="form-label">
-              Pincode
-            </label>
+          <div class="input-group mb-3 mt-5 mr-3 ml-3">
             <input
-              type="text"
+              onChange={(e) => {
+                setPhoto(e.target.value);
+              }}
+              type="file"
               class="form-control"
-              id="validationCustom05"
-              required
+              id="inputGroupFile02"
             />
+            <label class="input-group-text" for="inputGroupFile02">
+              Upload Photo
+            </label>
+          </div>
 
-            <div class="invalid-feedback">Please provide a valid zip.</div>
-          </div>
-          <div class="col-12">
-            <div class="form-check my-3 float-left">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="invalidCheck"
-                required
-              />
-              <label class="form-check-label" for="invalidCheck">
-                Agree to terms and conditions
-              </label>
-              <div class="invalid-feedback">
-                You must agree before submitting.
-              </div>
-            </div>
-          </div>
-          <br></br>
-          <br></br>
-          <div class="col-12">
+          <div className="col-12">
             <Link
+              onClick={onEditProfile}
               type="button"
-              class="btn btn-outline-primary float-center"
-              to="/ownerprofile"
+              className="btn btn-danger float-center mt-3 my-3"
+              to="/login"
             >
               Save
             </Link>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signup } from "../Actions/UserActions";
+import img2 from "../Images/img2.jpg";
 
 const RegistrationScreen = (props) => {
   const [name, setName] = useState("");
@@ -24,6 +25,11 @@ const RegistrationScreen = (props) => {
       signup(name, email, password, contactNo, address, role, adharCard)
     );
   };
+
+  const Alert = () => {
+    alert("Thank You For Registration !!!!");
+  };
+
   useEffect(() => {
     if (response && response.status == "success") {
       props.history.push("/login");
@@ -39,11 +45,16 @@ const RegistrationScreen = (props) => {
   };
 
   return (
-    <div class="text-center mt-5">
+    <div
+      class="text-center mt-5"
+      style={{
+        backgroundImage: `url(${img2})`,
+      }}
+    >
       <Header title="Register With Valid Credentials.." />
 
-      <div class="container col-sm-4 mt-5 border border-dark border-5">
-        <form class="row g-3 needs-validation" novalidate>
+      <div class="container col-sm-4 my-5 border border-dark border-5 ">
+        <form class="row g-3 needs-validation " novalidate>
           <div class="col-md-4 mt-3">
             <label for="validationCustom04" class="form-label">
               Role
@@ -190,7 +201,7 @@ const RegistrationScreen = (props) => {
               <button
                 class="btn btn-primary float-left"
                 type="submit"
-                onClick={onSignup}
+                onClick={(Alert, onSignup)}
               >
                 Register
               </button>
@@ -198,7 +209,7 @@ const RegistrationScreen = (props) => {
             <p class="col-sm-auto float-left ml-5">Already a User?</p>
             <Link
               type="button"
-              class="btn btn-outline-primary float-right"
+              class="btn btn-primary float-right mb-5"
               to="/login"
             >
               Login Here

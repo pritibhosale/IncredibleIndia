@@ -15,6 +15,9 @@ import AdminProfileScreen from "./Screens/AdminProfileScreen";
 import EditProfileScreen from "./Screens/EditProfileScreen";
 import SeekerProfileScreen from "./Screens/SeekerProfileScreen";
 import PropertyDetailsScreen from "./Screens/PropertyDetailsScreen";
+import GetContact from "./Screens/GetContact";
+import ForgotPassScreen from "./Screens/ForgotPassScreen";
+import AddFacilities from "./Screens/AddFacilities";
 
 function App() {
   return (
@@ -34,6 +37,9 @@ function App() {
           <Route path="/seekerprofile" component={SeekerProfileScreen} />
           <Route path="/editprofile" component={EditProfileScreen} />
           <Route path="/propertydetails" component={PropertyDetailsScreen} />
+          <Route path="/getcontact" component={GetContact} />
+          <Route path="/forgotpass" component={ForgotPassScreen} />
+          <Route path="/addfacilities" component={AddFacilities} />
 
           <Route path="/" component={HomeScreen} />
         </Switch>

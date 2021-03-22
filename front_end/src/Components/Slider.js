@@ -4,24 +4,27 @@ import { UncontrolledCarousel } from "reactstrap";
 const items = [
   {
     src: "https://source.unsplash.com/user/erondu/1600x700",
-    altText: "Slide 1",
-    caption: "Slide 1",
-    header: "Slide 1 Header",
+    altText: "Get Properties In Your Area",
+    caption:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    header: "Get Properties In Your Area",
     key: "1",
   },
 
   {
     src: "https://source.unsplash.com/user/erondu/1600x700",
-    altText: "Slide 2",
-    caption: "Slide 2",
-    header: "Slide 2 Header",
+    altText: "Hussel Free Contact With Owner",
+    caption:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    header: "Hussel Free Contact With Owner",
     key: "2",
   },
   {
     src: "https://source.unsplash.com/user/erondu/1600x700",
-    altText: "Slide 3",
-    caption: "Slide 3",
-    header: "Slide 3 Header",
+    altText: "Why Us ?? ",
+    caption:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    header: "Why Us ?? ",
     key: "3",
   },
 ];

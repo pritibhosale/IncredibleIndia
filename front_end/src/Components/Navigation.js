@@ -1,9 +1,50 @@
 import { Link } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { logout } from "../Actions/UserActions";
+import { FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+
 import "../App.css";
 
 const Navigation = (props) => {
+  const dispatch = useDispatch();
+  const userSignin = useSelector((store) => store.userSignin);
+  const { loading, error, response } = userSignin;
+
+  const [url, setUrl] = useState("");
+
+  const onLgout = () => {
+    dispatch(logout());
+  };
+
+  useEffect(() => {
+    // if (response && response.status == "OK") {
+    //localStorage.setItem("user", response.role);
+    //localStorage.setItem("user", JSON.stringify(response));
+    if (response && response.role == "ADMIN") {
+      setUrl("/adminprofile");
+    } else if (response && response.role === "OWNER") {
+      setUrl("/ownerprofile");
+    } else if (response && response.role == "SEEKER") {
+      setUrl("/seekerprofile");
+    } else if (response && response.status == "error") {
+      alert(response.error);
+    } else if (error) {
+      alert(error);
+    }
+  }, [loading, error, response]);
+
   return (
     <div>
+      <div className="container bg-info mt-4">
+        <div>
+          <span>
+            <FaPhoneAlt /> &nbsp;98989898 &nbsp; <FaEnvelope />
+            &nbsp;accomodation@gmail.com
+          </span>
+        </div>
+      </div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
           <Link class="navbar-brand" to="/">
@@ -40,9 +81,12 @@ const Navigation = (props) => {
         >
           Registration
         </Link>
-        <Link to="/ownerprofile">
+        <Link to={url}>
           <span class="material-icons iconfont">account_circle</span>
         </Link>
+        <span onClick={onLgout} class="material-icons ml-3 mr-3">
+          logout
+        </span>
       </nav>
     </div>
   );

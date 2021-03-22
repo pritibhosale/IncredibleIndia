@@ -25,8 +25,8 @@ public class SeekerController {
 	{
 		System.out.println("in ctor of:-"+getClass().getName());
 	}
-	 @GetMapping("/contactowner/{propid}")
-	 public ResponseDTO<?> getOwnerDetails(@PathVariable int propid)
+	 @PostMapping("/contactowner")
+	 public ResponseDTO<?> getOwnerDetails(@RequestBody int propid)
 	 {
 		 try {
 			return new ResponseDTO<> (HttpStatus.OK,"user deatils are successfully got ",seekerService.getContactDetails(propid));
